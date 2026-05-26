@@ -1,4 +1,4 @@
-import { CreateUserDTO, UserResponseDTO } from "../Dto/user_dto";
+import { CreateUserDTO, UserResponseDTO } from "../Dto/user.dto";
 import db from '../config/database'
 import { generateId } from "../utils/uuid";
 

@@ -1,4 +1,4 @@
-import { CreateTransactionDTO, TransactionResponseDTO } from "../Dto/transaction_dto";
+import { CreateTransactionDTO, TransactionResponseDTO } from "../Dto/transaction.dto";
 import db from '../config/database';
 import { generateId } from "../utils/uuid";
 

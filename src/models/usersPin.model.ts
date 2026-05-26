@@ -1,4 +1,4 @@
-import { CreateUsersPinDTO, UsersPinResponseDTO } from "../Dto/users_pin_dto";
+import { CreateUsersPinDTO, UsersPinResponseDTO } from "../Dto/usersPin.dto";
 import db from '../config/database';
 import { generateId } from "../utils/uuid";
 

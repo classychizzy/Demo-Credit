@@ -1,4 +1,4 @@
-import { CreateAddressDTO, AddressResponseDTO } from "../Dto/address_dto";
+import { CreateAddressDTO, AddressResponseDTO } from "../Dto/address.dto";
 import db from '../config/database'
 import { generateId } from "../utils/uuid";
 
