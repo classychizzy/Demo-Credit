@@ -18,7 +18,7 @@ const config: { [env: string]: Knex.Config } = {
       port: Number(process.env.DB_PORT) || 3306,
       user: process.env.DB_USER || 'root',
       password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'demo-credit',
+      database: process.env.DB_NAME || 'DemoCredit',
     },
     migrations: {
      directory: path.resolve(__dirname, '../migrations'),
