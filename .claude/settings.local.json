@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.adjutor.io)",
+      "WebFetch(domain:adjutor.io)",
+      "WebFetch(domain:lendsqr.com)",
+      "WebFetch(domain:app.adjutor.io)",
+      "WebFetch(domain:documenter.getpostman.com)",
+      "WebSearch",
+      "WebFetch(domain:docs.adjutor.io)",
+      "Bash(xargs ls)",
+      "Bash(xargs cat)",
+      "Bash(xargs ls -la)",
+      "Bash(xargs ls -1)"
+    ]
+  }
+}

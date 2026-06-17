@@ -8,7 +8,8 @@ const TABLE = 'accounts';
 export const AccountModel = {
   async create(data: CreateAccountDTO): Promise<CreateAccountDTO> {
     const id = generateId();
-    await db(TABLE).insert({ id, ...data });
+    const { id: _, ...dataWithoutId } = data;
+    await db(TABLE).insert({ id, ...dataWithoutId });
     return db(TABLE).where({ id }).first();
   },
 

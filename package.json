@@ -9,7 +9,10 @@
     "start": "node dist/index.js",
     "migrate:make": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:make",
     "migrate:latest": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:latest",
-    "migrate:rollback": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:rollback"
+    "migrate:rollback": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:rollback",
+    "migrate:status": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:status",
+    "migrate:seed": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts seed:run",
+    "migrate:list": "tsx ./node_modules/.bin/knex --knexfile src/config/knexfile.ts migrate:list"
   },
   "repository": {
     "type": "git",
@@ -30,9 +33,12 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",
     "knex": "^3.2.10",
     "mysql2": "^3.22.3",
+    "nodemailer": "^8.0.10",
     "reflect-metadata": "^0.2.2",
     "uuid": "^14.0.0"
   },
@@ -43,6 +49,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/knex": "^0.15.2",
     "@types/node": "^25.9.1",
+    "@types/nodemailer": "^8.0.0",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",

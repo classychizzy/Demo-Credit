@@ -46,6 +46,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src", "src/config/knexfile.ts"],
+  "include": ["src", "src/config/knexfile.ts", "types/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }

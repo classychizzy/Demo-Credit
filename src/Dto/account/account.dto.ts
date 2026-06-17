@@ -1,5 +1,6 @@
 
 export class CreateAccountDTO {
+  id!: string;
   user_id!: string;
   account_type!: string;
   account_number!: string;

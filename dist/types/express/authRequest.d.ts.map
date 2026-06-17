@@ -1,0 +1,1 @@
+{"version":3,"file":"authRequest.d.ts","sourceRoot":"","sources":["../../../src/types/express/authRequest.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,SAAS,CAAC;AAClC,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,gBAAgB,CAAC;AAElD,MAAM,WAAW,oBAAqB,SAAQ,OAAO;IACjD,IAAI,EAAE,WAAW,CAAC;CACrB"}

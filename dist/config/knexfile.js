@@ -16,7 +16,7 @@ const config = {
             port: Number(process.env.DB_PORT) || 3306,
             user: process.env.DB_USER || 'root',
             password: process.env.DB_PASSWORD || '',
-            database: process.env.DB_NAME || 'demo-credit',
+            database: process.env.DB_NAME || 'DemoCredit',
         },
         migrations: {
             directory: path_1.default.resolve(__dirname, '../migrations'),
@@ -36,5 +36,6 @@ const config = {
 };
 console.log('cwd:', process.cwd());
 console.log('migrations dir:', path_1.default.resolve(process.cwd(), '../migrations'));
+console.log("DB NAME:", process.env.DB_NAME);
 exports.default = config;
 //# sourceMappingURL=knexfile.js.map

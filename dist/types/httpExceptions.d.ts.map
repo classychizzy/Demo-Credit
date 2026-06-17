@@ -1,0 +1,1 @@
+{"version":3,"file":"httpExceptions.d.ts","sourceRoot":"","sources":["../../src/types/httpExceptions.ts"],"names":[],"mappings":"AAAA,cAAM,aAAc,SAAQ,KAAK;IAC/B,MAAM,EAAE,MAAM,CAAC;gBACH,MAAM,EAAE,MAAM,EAAE,OAAO,EAAE,MAAM;CAK5C;AAED,eAAe,aAAa,CAAC"}

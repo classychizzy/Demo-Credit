@@ -1,7 +1,7 @@
 
 export class CreateAddressDTO {
   user_id!: string;
-  house_number!: string;
+  street!: string;
   town!: string;
   city!: string;
   state!: string;

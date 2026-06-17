@@ -39,5 +39,6 @@ const config: { [env: string]: Knex.Config } = {
 
 console.log('cwd:', process.cwd());
 console.log('migrations dir:', path.resolve(process.cwd(), '../migrations'));
+console.log("DB NAME:", process.env.DB_NAME);
 
 export default config;

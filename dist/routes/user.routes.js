@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_controller_1 = require("../controllers/user.controller");
+const validate_Dto_1 = require("../middlewares/validate.Dto");
+const authmiddleware_1 = require("../middlewares/authmiddleware");
+const rateLimiter_1 = require("../middlewares/rateLimiter");
+const RegisterUser_dto_1 = require("../Dto/user/RegisterUser.dto");
+const forgotPassword_dto_1 = require("../Dto/user/forgotPassword.dto");
+const Login_dto_1 = require("../Dto/user/Login.dto");
+const refreshToken_dto_1 = require("../Dto/user/refreshToken.dto");
+const ResetPassword_dto_1 = require("../Dto/user/ResetPassword.dto");
+const changePassword_dto_1 = require("../Dto/user/changePassword.dto");
+const router = (0, express_1.Router)();
+const userController = new user_controller_1.UserController();
+router.post("/register/me", (0, validate_Dto_1.validateDto)(RegisterUser_dto_1.RegisterUserDTO), userController.RegisterUserController.bind(userController));
+router.post("/forgot-password", (0, validate_Dto_1.validateDto)(forgotPassword_dto_1.ForgotPasswordDTO), userController.forgotPasswordController.bind(userController));
+router.post("/login", rateLimiter_1.loginRateLimiter, (0, validate_Dto_1.validateDto)(Login_dto_1.loginDto), userController.loginController.bind(userController));
+router.post("/refresh", (0, validate_Dto_1.validateDto)(refreshToken_dto_1.RefreshTokenDTO), userController.refreshTokenController.bind(userController));
+router.post("/logout", (0, validate_Dto_1.validateDto)(refreshToken_dto_1.RefreshTokenDTO), userController.logoutController.bind(userController));
+router.post("/reset-password", (0, validate_Dto_1.validateDto)(ResetPassword_dto_1.ResetPasswordDTO), userController.resetPasswordController.bind(userController));
+router.patch("/change-password", authmiddleware_1.authenticateToken, (0, validate_Dto_1.validateDto)(changePassword_dto_1.ChangePasswordDTO), userController.changePasswordController.bind(userController));
+exports.default = router;
+//# sourceMappingURL=user.routes.js.map

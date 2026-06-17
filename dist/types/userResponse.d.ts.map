@@ -1,0 +1,1 @@
+{"version":3,"file":"userResponse.d.ts","sourceRoot":"","sources":["../../src/types/userResponse.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,YAAY;IACzB,EAAE,CAAC,EAAE,MAAM,CAAC;IACZ,UAAU,EAAE,MAAM,CAAC;IACnB,SAAS,EAAE,MAAM,CAAC;IAClB,KAAK,EAAE,MAAM,CAAC;IACd,YAAY,EAAE,MAAM,CAAC;IACrB,MAAM,EAAE,MAAM,CAAC;IACf,aAAa,EAAE,MAAM,CAAC;IACtB,SAAS,EAAE,OAAO,CAAC;CACtB"}

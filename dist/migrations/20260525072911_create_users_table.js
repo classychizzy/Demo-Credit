@@ -9,6 +9,7 @@ async function up(knex) {
         table.string('last_name').notNullable();
         table.string('email').notNullable().unique();
         table.string('phone_number').notNullable().unique();
+        table.string('password').notNullable();
         table.enum('gender', ['male', 'female', 'other']).notNullable();
         table.string('bvn').notNullable().unique();
         table.date('date_of_birth').notNullable();

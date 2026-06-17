@@ -2,8 +2,9 @@ import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 
 
+
 export const validateDto = <T>(DtoClass: ClassConstructor<T>) => {
-  return async (req, res, next) => {
+  return async (req: any, res: any, next: any) => {
     const dto = plainToInstance(DtoClass, req.body, {
       enableImplicitConversion: true,
     });

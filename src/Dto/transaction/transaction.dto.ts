@@ -1,5 +1,6 @@
+import { TransactionType } from '../../enum/transaction';
 
-export type TransactionType = 'interbank' | 'intrabank' | 'self';
+export { TransactionType };
 
 export class CreateTransactionDTO {
   account_id!: string;
