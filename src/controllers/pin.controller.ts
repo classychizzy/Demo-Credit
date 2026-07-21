@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { AuthenticatedRequest } from '../types/express/authRequest'
 import { PinService } from '../services/pin/pin.service'
-import { SetPinDTO, ChangePinDTO, VerifyPinDTO } from '../Dto/usersPin/usersPin.dto'
+import { SetPinDTO, ChangePinDTO, VerifyPinDTO, ResetPinDTO } from '../Dto/usersPin/usersPin.dto'
 
 export class PinController {
   private pinService: PinService
@@ -34,6 +34,16 @@ export class PinController {
     try {
       const data = req.body as VerifyPinDTO
       const response = await this.pinService.verifyPin(req.user.id, data)
+      return res.status(response.status_code).json(response)
+    } catch (error: any) {
+      return res.status(500).json({ status_code: 500, success: false, message: error.message || 'Internal server error' })
+    }
+  }
+
+  public async resetPinController(req: AuthenticatedRequest, res: Response) {
+    try {
+      const data = req.body as ResetPinDTO
+      const response = await this.pinService.resetPin(req.user.id, data)
       return res.status(response.status_code).json(response)
     } catch (error: any) {
       return res.status(500).json({ status_code: 500, success: false, message: error.message || 'Internal server error' })

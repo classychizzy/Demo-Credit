@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt'
 import { ResponseDto } from '../../Dto/response/response.dto'
-import { SetPinDTO, ChangePinDTO, VerifyPinDTO } from '../../Dto/usersPin/usersPin.dto'
+import { SetPinDTO, ChangePinDTO, VerifyPinDTO, ResetPinDTO } from '../../Dto/usersPin/usersPin.dto'
 import { UsersPinModel } from '../../models/usersPin.model'
+import { UserModel } from '../../models/user.model'
 
 export class PinService {
   async setPin(userId: string, data: SetPinDTO): Promise<ResponseDto> {
@@ -56,5 +57,33 @@ export class PinService {
     }
 
     return { status_code: 200, success: true, message: 'PIN verified' }
+  }
+
+  async resetPin(userId: string, data: ResetPinDTO): Promise<ResponseDto> {
+    const userBase = await UserModel.findById(userId)
+
+    if (!userBase) {
+      return { status_code: 404, success: false, message: 'User not found' }
+    }
+
+    // findByEmail is the only model method that returns the hashed password
+    const userWithPassword = await UserModel.findByEmail(userBase.email)
+
+    const passwordMatch = await bcrypt.compare(data.password, userWithPassword!.password as string)
+
+    if (!passwordMatch) {
+      return { status_code: 401, success: false, message: 'Incorrect password' }
+    }
+
+    const record = await UsersPinModel.findByUserId(userId)
+    const hashedPin = await bcrypt.hash(data.new_pin, 10)
+
+    if (record) {
+      await UsersPinModel.update(record.id!, { pin: hashedPin })
+    } else {
+      await UsersPinModel.create({ user_id: userId, pin: hashedPin })
+    }
+
+    return { status_code: 200, success: true, message: 'PIN reset successfully' }
   }
 }

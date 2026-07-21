@@ -10,6 +10,7 @@ import walletRoutes from "./routes/wallet.routes";
 import addressRoutes from "./routes/address.routes";
 import accountRoutes from "./routes/account.routes";
 import pinRoutes from "./routes/pin.routes";
+import kycRoutes from "./routes/kyc.routes";
 import helmet from 'helmet';
 
 
@@ -30,6 +31,7 @@ app.use("/api/wallet", walletRoutes);
 app.use("/api/addresses", addressRoutes);
 app.use("/api/accounts", accountRoutes);
 app.use("/api/pin", pinRoutes);
+app.use("/api/kyc", kycRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

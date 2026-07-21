@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { PinController } from '../controllers/pin.controller'
 import { validateDto } from '../middlewares/validate.Dto'
 import { authenticateToken } from '../middlewares/authmiddleware'
-import { SetPinDTO, ChangePinDTO, VerifyPinDTO } from '../Dto/usersPin/usersPin.dto'
+import { SetPinDTO, ChangePinDTO, VerifyPinDTO, ResetPinDTO } from '../Dto/usersPin/usersPin.dto'
 
 const router = Router()
 const pinController = new PinController()
@@ -26,6 +26,13 @@ router.post(
   authenticateToken,
   validateDto(VerifyPinDTO),
   pinController.verifyPinController.bind(pinController)
+)
+
+router.post(
+  '/reset',
+  authenticateToken,
+  validateDto(ResetPinDTO),
+  pinController.resetPinController.bind(pinController)
 )
 
 export default router

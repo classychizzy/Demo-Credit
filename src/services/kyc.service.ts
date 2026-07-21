@@ -1,60 +1,61 @@
-// services/kyc.service.ts
 import { KYCModel } from '../models/kyc.model';
 import { UserModel } from '../models/user.model';
-import { banks} from '../data/bank'
+import { banks } from '../data/bank';
 import { VerifyKYCDTO } from '../Dto/kyc/kyc.dto';
-import { Bank } from '../data/bank.dto';
+import { ResponseDto } from '../Dto/response/response.dto';
 
-export async function submitKYC(userId: string, payload: VerifyKYCDTO) {
-  const existing = await KYCModel.findByUserId(userId);
-  if (existing?.kyc_status === 'verified') {
-    throw new Error('KYC already verified');
+export class KYCService {
+  async submitKYC(userId: string, payload: VerifyKYCDTO): Promise<ResponseDto> {
+    const existing = await KYCModel.findByUserId(userId);
+    if (existing?.kyc_status === 'verified') {
+      return { status_code: 409, success: false, message: 'KYC already verified' };
+    }
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return { status_code: 404, success: false, message: 'User not found' };
+    }
+
+    const bank = banks.find((b) => b.bankCode === payload.bank_code);
+    if (!bank) {
+      return { status_code: 400, success: false, message: 'Invalid bank code' };
+    }
+
+    const account_name = `${user.first_name} ${user.last_name}`.toUpperCase();
+    const bvn_verified = true; // matchBVN() in production
+
+    let kyc;
+
+    if (existing) {
+      await KYCModel.updateKYC(userId, {
+        ...payload,
+        account_name,
+        bvn_verified,
+        kyc_status: 'pending',
+        rejection_reason: null,
+      });
+      kyc = await KYCModel.findByUserId(userId);
+    } else {
+      kyc = await KYCModel.create({
+        user_id: userId,
+        ...payload,
+        account_name,
+      });
+    }
+
+    // simulate manual review — admin updates status in production
+    setTimeout(async () => {
+      await KYCModel.updateStatus(userId, 'verified');
+    }, 5000);
+
+    return { status_code: existing ? 200 : 201, success: true, message: 'KYC submitted successfully', data: kyc };
   }
 
-  // fetch user to simulate BVN cross-check
-  const user = await UserModel.findById(userId);
-  if (!user) throw new Error('User not found');
-
-  // validate bank code
-  const bank: Bank  | undefined = banks.find((b) => bank?.bankCode === payload.bank_code);
-  if (!bank) throw new Error('Invalid bank code');
-
-  // simulate resolved account name
-  const account_name = `${user.first_name} ${user.last_name}`.toUpperCase();
-
-  // simulate BVN verified against account
-  const bvn_verified = true; // matchBVN() in production
-
-  let kyc;
-
-  if (existing) {
-    await KYCModel.updateKYC(userId, {
-      ...payload,
-      account_name,
-      bvn_verified,
-      kyc_status: 'pending',
-      rejection_reason: null,
-    });
-    kyc = await KYCModel.findByUserId(userId);
-  } else {
-    kyc = await KYCModel.create({
-      user_id: userId,
-      ...payload,
-      account_name,
-    });
+  async getKYCStatus(userId: string): Promise<ResponseDto> {
+    const kyc = await KYCModel.findByUserId(userId);
+    if (!kyc) {
+      return { status_code: 404, success: false, message: 'KYC record not found' };
+    }
+    return { status_code: 200, success: true, message: 'KYC status retrieved successfully', data: kyc };
   }
-
-  // simulate manual review delay — in production
-  // an admin reviews documents and updates status
-  setTimeout(async () => {
-    await KYCModel.updateStatus(userId, 'verified');
-  }, 5000);
-
-  return kyc;
-}
-
-export async function getKYCStatus(userId: string) {
-  const kyc = await KYCModel.findByUserId(userId);
-  if (!kyc) throw new Error('KYC record not found');
-  return kyc;
 }
